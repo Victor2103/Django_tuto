@@ -19,3 +19,15 @@ def index(request):
         'keyRdvs':rdvs,
         'keyShowRdvs':True
     })
+
+def plusDetails(request,rdv_slug):
+    print(rdv_slug)
+    rdvsdetailles={
+        'titre':'un premier rdv',
+        'description':'ceci est mon premier rendez vous !'
+    }
+    
+    return render(request,'rdvs/plus-details.html',{
+        'keyRdvTitre':rdvsdetailles['titre'],
+        'keyRdvDescription':rdvsdetailles['description']
+    })
