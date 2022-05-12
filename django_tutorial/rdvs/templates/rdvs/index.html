@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{% static 'rdvs/styles/base.css' %}" >
+    <link rel='stylesheet' href="{% static 'rdvs/styles/tous_rdv.css' %}"> 
+    <title>Tous les rendez vous</title>
+</head>
+<body>
+    <header id="main-header">
+        <nav><a href='/touslesrdv/'id="main-logo" > Django page de rendezvous </a> </nav>
+        <h1> Nous avons plein de rendez vous pour vous</h1>
+        <p>Trouver le meilleur pour vous</p>
+    </header>
+    <main>
+        <section>
+            <h2>Rendez vous a venir </h2>
+            <ol>
+                {% for meetup_item in keyRdvs %} 
+                <li class="meetup-item">
+                    <article>
+                        <div class="meetup-summary">
+                            <div class="meetup-image">
+                                <img src="" alt="">
+                            </div> 
+                            <div class="meetup-details">
+                                <h3>{{ meetup_item.titre }}</h3>
+                                <address>{{ meetup_item.lieu }}</address>
+                            </div>
+                        </div>
+                        <div class="meetup-actions">
+                            <a href="" class="btn">Plus de détails</a>
+                        </div>
+                    </article>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+    </main>
+</body>
+</html>
