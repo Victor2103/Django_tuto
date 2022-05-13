@@ -22,12 +22,20 @@
             <h2>De quoi parle le rendez vous</h2>
             <p>{{ keyRdv.description }}</p>
             <footer>
-                <p>Plus de détails ? <a href="">Contactez l'organisateur</a></p>
+                <p>Plus de détails ? <a href="mailto:{{keyRdv.email_organisateur }}">Contactez l'organisateur</a></p>
             </footer>
         </section>
         <section id="registration">
             <h2>Rejoignez nous</h2>
-            FORM
+            <form action="{% url 'rdv-details' keyRdv.slug %}" method="POST">
+                {% csrf_token %} 
+                <ul>
+                    {{ keyFormulaire.as_ul}}
+                </ul>
+                <div id="registration-actions">
+                    <button>Adhésion</button>
+                </div>
+            </form>
         </section>
     </article>
 

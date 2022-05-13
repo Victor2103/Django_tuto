@@ -1,0 +1,25 @@
+{% extends 'rdvs/exemple/exemple.html' %} 
+
+{% load static %} 
+
+{% block titre %} Vous êtes bien enregistré pour la réunion ! {% endblock %} 
+
+{% block fichier-css %} 
+<link rel='stylesheet' href="{% static 'rdvs/styles/enreg_reussi.css' %} ">
+{% endblock %} 
+
+{% block header %} Merci d'avoir adhéré ! {% endblock %} 
+
+{% block body %} 
+<section id="confirmation" >
+    <h2>Vous êtes bien enregistré</h2>
+    <p>Merci d'avoir signé avec nous, nous vous attendons aux rendez vous</p>
+    <p>Des questions Contactez  <a href="mailto: {{ keyOrganisateur }}">l'organisateur</a></p>
+</section>
+
+<section id="continue">
+    <p>Bien sur, vous pouvez aussi vous inscrire à d'autres rendez vous</p>
+    <p><a href="/touslesrdv" class="btn">Regarder les rendez vous</a></p>
+</section>
+
+{% endblock %} 
