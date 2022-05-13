@@ -1,33 +1,40 @@
 {% extends 'rdvs/exemple/exemple.html' %}
 {% load static %}
 
-{% block titre %} {{ keyRdvTitre }} {% endblock %}
+{% block titre %} {{ keyRdv.titre }} {% endblock %}
     <link rel='stylesheet' href="{% static 'rdvs/styles/base.css' %}" >
 {% block fichier-css %} 
 <link rel='stylesheet' href="{% static 'rdvs/styles/rdv-detail.css' %}" >
 {% endblock %}
 {% block header %} 
-    {{keyRdvTitre }}
+    {{keyRdv.titre }}
 {% endblock %} 
 
 {% block body %} 
-<article>
-    <img src="" alt="" >
-    <section id="location">
-        <h2>Lieu du rdv</h2>
-        <address>Le rdv aura lieu à <span>LIEU</span></address>
-    </section>
-    <section>
-        <h2>De quoi parle le rendez vous</h2>
-        <p>{{ keyRdvDescription }}</p>
-        <footer>
-            <p>Plus de détails ? <a href="">Contactez l'organisateur</a></p>
-        </footer>
-    </section>
-    <section id="registration">
-        <h2>Rejoignez nous</h2>
-        FORM
-    </section>
-</article>
+{% if keyRdvTrouve %}
+    <article>
+        <img id="main-image" src="{{keyRdv.image.url}}" alt="{{keyRdv.titre}}" >
+        <section id="location">
+            <h2>Lieu du rdv</h2>
+            <address>Le rdv aura lieu à <span>{{keyRdv.lieu.nom}}</span>({{keyRdv.lieu.address}})</address>
+        </section>
+        <section>
+            <h2>De quoi parle le rendez vous</h2>
+            <p>{{ keyRdv.description }}</p>
+            <footer>
+                <p>Plus de détails ? <a href="">Contactez l'organisateur</a></p>
+            </footer>
+        </section>
+        <section id="registration">
+            <h2>Rejoignez nous</h2>
+            FORM
+        </section>
+    </article>
+
+{% else %}
+
+<p>Aucun rendez vous pour cette URL, désolé</p>
+{% endif %}
+
 {% endblock %}
 

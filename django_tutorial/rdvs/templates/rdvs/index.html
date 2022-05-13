@@ -22,22 +22,7 @@ Nous avons plein de rendez vous pour vous
     <h2>Rendez vous a venir </h2>
     <ol>
         {% for rdv in keyRdvs %} 
-        <li class="meetup-item">
-            <article>
-                <div class="meetup-summary">
-                    <div class="meetup-image">
-                        <img src="" alt="">
-                    </div> 
-                    <div class="meetup-details">
-                        <h3>{{ rdv.titre }}</h3>
-                        <address>{{ rdv.lieu }}</address>
-                    </div>
-                </div>
-                <div class="meetup-actions">
-                    <a href="{% url 'rdv-details' rdv.slug %}" class="btn">Plus de détails</a>
-                </div>
-            </article>
-        </li>
+            {% include 'rdvs/includes/rdv.html' with titre=rdv.titre lieu=rdv.lieu.name slug=rdv.slug image=rdv.image.url %}
         {% endfor %}
     </ol>
 </section>

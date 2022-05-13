@@ -1,0 +1,16 @@
+<li class="meetup-item">
+    <article>
+        <div class="meetup-summary">
+            <div class="meetup-image">
+                <img src="{{ image }}" alt="{{ titre }}">
+            </div> 
+            <div class="meetup-details">
+                <h3>{{ titre }}</h3>
+                <address>{{ lieu }}</address>
+            </div>
+        </div>
+        <div class="meetup-actions">
+            <a href="{% url 'rdv-details' slug %}" class="btn">Plus de détails</a>
+        </div>
+    </article>
+</li>

@@ -1,33 +1,28 @@
+from email.mime import image
 from django.shortcuts import render
+
+
+
+from .models import Rdv
 
 # Create your views here.
 
+
+
 def index(request):
-    rdvs=[
-        {
-            'titre': 'un premier rdv',
-            'lieu':'Paris',
-            'slug':'premier-rdv'
-        },
-        {
-            'titre': 'un deuxième rdv',
-            'lieu':'Londres',
-            'slug':'deuxieme-rdv'
-        }
-    ]
+    tousRdv=Rdv.objects.all()
     return render(request,'rdvs/index.html', {
-        'keyRdvs':rdvs,
-        'keyShowRdvs':True
+        'keyRdvs':tousRdv
     })
 
 def plusDetails(request,rdv_slug):
-    print(rdv_slug)
-    rdvsdetailles={
-        'titre':'un premier rdv',
-        'description':'ceci est mon premier rendez vous !'
-    }
-    
-    return render(request,'rdvs/plus-details.html',{
-        'keyRdvTitre':rdvsdetailles['titre'],
-        'keyRdvDescription':rdvsdetailles['description']
-    })
+    try:
+        rdvsdetailles=Rdv.objects.get(slug=rdv_slug)
+        return render(request,'rdvs/plus-details.html',{
+            'keyRdvTrouve':True,
+            'keyRdv':rdvsdetailles
+        })
+    except Exception as exc:
+        return render(request, 'rdvs/plus-details.html',{
+            'keyRdvTrouve':False
+        })
