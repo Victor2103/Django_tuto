@@ -1,0 +1,15 @@
+{% extends 'rdvs/exemple/exemple.html' %}
+
+{% load static %}
+
+{% block title %}
+    Veuillez vous enregistrer ! 
+{% endblock %}
+
+{% block body %}
+    <form method="POST">
+        {% csrf_token %} {{form}}
+        <p>Pas de compte inscrivez vous ! <a href='/sign_up'>ici</a></p>
+        <button type='submit'>Se connecter</button>
+    </form>
+{% endblock %}

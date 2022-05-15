@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.contrib.auth import login, logout,authenticate
 
-from .forms import Enregistrement
+from .forms import Enregistrement,InscriptionForm
 
 
 
@@ -54,3 +55,16 @@ def enreg_confirme(request,rdv_slug):
 
 def connexion(request):
     return render(request,'rdvs/connexion.html',{})
+
+def sinscrire(request):
+    if request.method=='POST':
+        form=InscriptionForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            login(request,user)
+            return redirect('/touslesrdv/')
+    else:
+        form=InscriptionForm()
+    
+    return render(request,'registration/sign-up.html',{"form":form})
+
