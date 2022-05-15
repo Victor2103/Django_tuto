@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 
 from .forms import Enregistrement
 
@@ -27,6 +28,12 @@ def plusDetails(request,rdv_slug):
                 utilisateur_email=form_enregistrement.cleaned_data['email']
                 adherent,_=Participant.objects.get_or_create(email=utilisateur_email)
                 rdvsdetailles.participants.add(adherent)
+                send_mail(
+                    "Rendez vous confirmé",
+                    "Nous vous confirmons votre rendez vous et d'être inscrit",
+                    "vitcheffvi@cy-tech.fr",
+                    [utilisateur_email]
+                )
                 return redirect('confirmer-enregistrement',rdv_slug=rdv_slug)
 
         return render(request,'rdvs/plus-details.html',{
@@ -44,3 +51,6 @@ def enreg_confirme(request,rdv_slug):
     return render(request,'rdvs/enregistrement_reussi.html',{
         'keyOrganisateur':rdv.email_organisateur
     })
+
+def connexion(request):
+    return render(request,'rdvs/connexion.html',{})

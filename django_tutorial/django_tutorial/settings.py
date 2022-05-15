@@ -132,3 +132,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT=BASE_DIR / 'telechargements'
 
 MEDIA_URL= '/fichiers/'
+
+
+# Commande pour le mail : 
+# python -m smtpd -n -c DebuggingServer localhost:1025
+EMAIL_HOST='localhost'
+EMAIL_PORT='1025'
+EMAIL_HOST_USER=''
+EMAIL_HOST_PASSWORD=''
+EMAIL_USE_TLS=False
+#EMAIL_USE_SSL=False
