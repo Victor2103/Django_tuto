@@ -1,13 +1,12 @@
 from django.contrib import admin
 
-from .models import Rdv, Lieu, Participant
+from .models import  Lieu, Participant ,Rdv
 
 # Register your models here.
 
 class RdvAdmin(admin.ModelAdmin):
     list_display= ('titre', 'slug')
     list_filter= ('lieu','date')
-    prepopulated_fields= {'slug':('titre',)}
 
 
 admin.site.register(Rdv, RdvAdmin)

@@ -1,0 +1,14 @@
+{% extends 'rdvs/exemple/exemple.html' %}
+
+{% load static %}
+
+{% block title %}
+    Ajouter un rendez vous ! 
+{% endblock %}
+
+{% block body %}
+    <form method="POST">
+        {% csrf_token %} {{keyForm}}
+        <button type='submit'>Ajouter</button>
+    </form>
+{% endblock %}

@@ -1,23 +1,24 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.contrib.auth import login, logout,authenticate
+from django.contrib.auth.decorators import login_required
 
-from .forms import Enregistrement,InscriptionForm
+from .forms import AjoutRdv, Enregistrement
 
 
 
-from .models import Rdv,Participant
+from .models import Participant , Rdv
 
 # Create your views here.
 
 
-
+@login_required(login_url='/login')
 def index(request):
     tousRdv=Rdv.objects.all()
     return render(request,'rdvs/index.html', {
         'keyRdvs':tousRdv
     })
 
+@login_required(login_url='/login')
 def plusDetails(request,rdv_slug):
     try:
         rdvsdetailles=Rdv.objects.get(slug=rdv_slug)
@@ -47,24 +48,32 @@ def plusDetails(request,rdv_slug):
             'keyRdvTrouve':False
         })
 
+
+@login_required(login_url='/login')
 def enreg_confirme(request,rdv_slug):
     rdv=Rdv.objects.get(slug=rdv_slug)
     return render(request,'rdvs/enregistrement_reussi.html',{
         'keyOrganisateur':rdv.email_organisateur
     })
 
-def connexion(request):
-    return render(request,'rdvs/connexion.html',{})
-
-def sinscrire(request):
+@login_required(login_url='/login')
+def creer_Rdv(request):
     if request.method=='POST':
-        form=InscriptionForm(request.POST)
+        form=AjoutRdv(request.POST)
         if form.is_valid():
-            user=form.save()
-            login(request,user)
-            return redirect('/touslesrdv/')
-    else:
-        form=InscriptionForm()
-    
-    return render(request,'registration/sign-up.html',{"form":form})
+            rdv=form.save(commit=False)
+            rdv.auteur=request.user
+            rdv.email_organisateur=request.user.email
+            rdv.save()
+            return redirect('/')
+    else :
+        form=AjoutRdv()
+
+    return render (request, 'rdvs/ajout_rdv.html', {
+        "keyForm":form
+    })
+
+
+
+
 

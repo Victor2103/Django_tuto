@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rdvs'
+    'rdvs',
+    'authentification'
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'django_tutorial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_rdv',
+        'NAME': 'django_rdv2',
         'USER' : 'ashley',
         'PASSWORD':'admin',
         'HOST':'localhost',

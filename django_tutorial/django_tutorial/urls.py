@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('touslesrdv/',include('rdvs.urls')),
+    path('',include('authentification.urls')),
     path('',include('django.contrib.auth.urls')),
-    path('',include('rdvs.urls')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
