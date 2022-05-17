@@ -1,38 +1,41 @@
 {% load static %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href="{% static 'rdvs/styles/base.css' %}" >
-    {% block fichier-css %} {% endblock %} 
-    <title>{% block titre %} Mes rendez vous {% endblock %}</title>
+    {% tailwind_css %}
+    <title>{% block titre %} Tous les Rdv {% endblock %}</title>
+    
 </head>
 <body>
     <header id="main-header">
-        <nav>
-            <ul>
-                {% if user.is_authenticated %}
-                    <span>Connecté en tant que {{user.username}}</span>
+        <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+            <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+                <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                    {% if user.is_authenticated %}
+                        <span >Connecté en tant que {{user.username}}</span>
+                        <li>
+                            <a href='/logout'class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Se deconnecter</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href='/login'class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Se connecter</a>
+                        </li>
+                    {% endif %}
                     <li>
-                        <a href='/logout'>Se deconnecter</a>
+                        <a href='/touslesrdv/'class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page"> Django page de rendezvous </a>
                     </li>
-                {% else %}
                     <li>
-                        <a href='/login'>Se connecter</a>
+                        <a href="/" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Page accueil</a>
                     </li>
-                {% endif %}
-                <li>
-                    <a href='/touslesrdv/'id="main-logo" > Django page de rendezvous </a>
-                </li>
-                <li>
-                    <a href="/">Page accueil</a>
-                </li>
-                <li>
-                    <a href='/touslesrdv/ajout_rdv'>Ajouter un rendez vous</a>
-                </li>
-            </ul>
+                    <li>
+                        <a href='/touslesrdv/ajout_rdv' class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">Ajouter un rendez vous</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
         <h1> {% block header %} {% endblock %}</h1>
         <p>{% block contenuHeader %} {% endblock %}</p>
