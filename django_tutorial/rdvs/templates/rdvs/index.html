@@ -22,7 +22,7 @@ Nous avons plein de rendez vous pour vous
     <h2>Rendez vous a venir </h2>
     <ol>
         {% for rdv in keyRdvs %} 
-            {% include 'rdvs/includes/rdv.html' with titre=rdv.titre lieu=rdv.lieu.name slug=rdv.slug %}
+            {% include 'rdvs/includes/rdv.html' with titre=rdv.titre lieu=rdv.lieu.name slug=rdv.slug email=rdv.email_organisateur id=rdv.id auteur=rdv.auteur %}
         {% endfor %}
     </ol>
 </section>

@@ -11,6 +11,18 @@
         </div>
         <div class="meetup-actions">
             <a href="{% url 'rdv-details' slug %}" class="btn">Plus de détails</a>
+            {% if request.user.email == email or perms.rdvs.delete_rdv %}
+                <form method="post">
+                   {% csrf_token %}
+                   <button type="submit" class='btn'name ='rdv-id' value="{{ id }}">Supprimer</button> 
+                </form>
+            {% endif %}
+            {% if user.is_staff %}
+                <form method='post'>
+                    {% csrf_token %}
+                    <button type='submit' class="btn" name='user-id' value='{{ auteur.id }}'>Ban utilisateur {{ auteur }}</button>
+                </form>
+            {% endif %}
         </div>
     </article>
 </li>

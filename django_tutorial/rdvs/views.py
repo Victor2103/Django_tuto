@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.decorators import login_required,permission_required
+from django.contrib.auth.models import User, Group
 from .forms import AjoutRdv, Enregistrement
 
 
@@ -14,6 +14,26 @@ from .models import Participant , Rdv
 @login_required(login_url='/login')
 def index(request):
     tousRdv=Rdv.objects.all()
+    if request.method == 'POST':
+        rdvid=request.POST.get('rdv-id')
+        userid=request.POST.get('user-id')
+        if rdvid:
+            rdv=Rdv.objects.filter(id=rdvid).first()
+            if rdv and rdv.auteur==request.user or request.user.has_perm("rdvs.delete_rdv"):
+                rdv.delete()
+        elif userid:
+            user=User.objects.filter(id=userid).first()
+            if user and request.user.is_staff:
+                try:
+                    group=Group.objects.get(name='defaut')
+                    group.user_set.remove(user)
+                except:
+                    pass
+                try:
+                    group=Group.objects.get(name='mod')
+                    group.user_set.remove(user)
+                except:
+                    pass
     return render(request,'rdvs/index.html', {
         'keyRdvs':tousRdv
     })
@@ -57,6 +77,7 @@ def enreg_confirme(request,rdv_slug):
     })
 
 @login_required(login_url='/login')
+@permission_required("rdvs.add_rdv",login_url="/login",raise_exception=True)
 def creer_Rdv(request):
     if request.method=='POST':
         form=AjoutRdv(request.POST)
