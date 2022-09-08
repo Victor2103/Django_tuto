@@ -15,8 +15,8 @@ from pathlib import Path
 #Import the .env file to secure the BDD
 import environ
 
-# Initialise environment 
-variablesenv = environ.Env()
+# Initialise environment variables
+env = environ.Env()
 environ.Env.read_env()
 
 
@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j28_k^1e)un_1p^#tckrwo2k)%j!r#!ug8b6-=1!$cbpdr8dho'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'django_tutorial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_rdv2',
-        'USER' : 'ashley',
-        'PASSWORD':'admin',
-        'HOST':'localhost',
-        'PORT':'5432'
+        'NAME': env('DB_NAME'),
+        'USER' : env('DB_USER'),
+        'PASSWORD':env('DB_PASSWORD'),
+        'HOST':env('DB_HOST'),
+        'PORT': env('DB_PORT')
     }
 }
 
