@@ -77,7 +77,6 @@ def enreg_confirme(request,rdv_slug):
     })
 
 @login_required(login_url='/login')
-@permission_required("rdvs.add_rdv",login_url="/login",raise_exception=True)
 def creer_Rdv(request):
     if request.method=='POST':
         form=AjoutRdv(request.POST)
